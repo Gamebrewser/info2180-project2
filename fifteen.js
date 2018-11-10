@@ -1,3 +1,11 @@
+// INFO2180: Web Development 1
+// Lecturer: Yannick Lyn Fatt
+// Student: Kyle Davidson
+// ID: 620099854
+// I would like to be graded on the animation/transitions. The timer function does not run but the code seems to be correct
+// so I am not sure why it doesn't start. Hopefully you can see what I was trying to do when you read and test the code.
+// I also wanted to implement a function that would record the number of moves made but time prevented me from doing so.
+
 //structure the puzzle	
 window.onload = function(){
 	var blankx = "300px";
@@ -16,17 +24,17 @@ window.onload = function(){
 	var a=0;//column counter
 	var k=0;//row counter
 
-	var gameStart = false;
+	let gameStart = false;
 	var timer = document.createElement("P");
 	var moves = document.createElement("P");
 
 	//displays the number of moves made
-    moves.id = "moves";
-    moves.appendChild(document.createTextNode("Moves: "));
-    document.getElementById("overall").insertBefore(moves,puzzlearea);
-    moves.style.position = "fixed";
-    moves.style.top = "15%";
-    moves.style.left = "1%";
+    // moves.id = "moves";
+    // moves.appendChild(document.createTextNode("Moves: "));
+    // document.getElementById("overall").insertBefore(moves,puzzlearea); //incomplete move function code.
+    // moves.style.position = "fixed";
+    // moves.style.top = "15%";
+    //moves.style.left = "1%";
 
     //displays the time after the game has started
     timer.id = "timer";
@@ -68,7 +76,7 @@ window.onload = function(){
 	}
 
 	//add on click event listener for shuffle button
-	shuffButton.addEventListener("click",function(){shuffle();},false);
+	shuffButton.addEventListener("click",shuffle);
 
 
 	function isMovable(pos){
@@ -146,9 +154,21 @@ window.onload = function(){
 	var options = new Array();//stores blocks with valid moves
 	var opt=0;//option randomly generated
 
+	function start() {
+		if(!gameStart){}
+		for(var i=0;i<puzzleArea.length;i++)
+		{
+			puzzleArea[i].style.backgroundImage = "url('mario.jpg')";//reset image for unsolved puzzle
+			puzzleArea[i].style.borderColor = "black";//set border color to black
+			puzzleArea[i].style.backgroundSize = "400px 400px";// let image size and grid size be the same
+		}
+	}
+
+	start();
 	function shuffle(){
+		gameStart = false;
 		if (!gameStart){
-			timer = setInterval(timer,1000);
+			var startTimer = setInterval(timer,1000);
 			for(var a=0;a<1000;a++){
 				for(var i=0;i<puzzleArea.length;i++){
 					if(isMovable(i)){
@@ -157,14 +177,16 @@ window.onload = function(){
 					}
 			opt=options[Math.floor((Math.random()*options.length)+0)];//randomly select a block from the valid array
 			move(opt);//move random valid block
+			//gameStart = true;
 		}
 	}
 		for(var i=0;i<puzzleArea.length;i++)
 		{
 			puzzleArea[i].style.backgroundImage = "url('mario.jpg')";//reset image for unsolved puzzle
-			puzzleArea[i].style.borderColor = "black";//set border color to black
+			puzzleArea[i].style.blackorderColor = "black";//set border color to black
 			puzzleArea[i].style.backgroundSize = "400px 400px";// let image size and grid size be the same
 		}
+
 		document.body.children[0].innerHTML =  "<h1>Fifteen Puzzle</h1>";//set back starting message
 		header.style.fontSize = "14pt";
 		header.style.color = "black";//
